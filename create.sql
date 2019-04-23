@@ -85,3 +85,40 @@ WHERE
 ORDER BY
   movies.name
 ASC;
+
+
+-- Degrees Bacon
+
+SELECT
+  actors.first_name,
+  actors.last_name,
+  movies.name,
+  movies.year
+FROM
+  actors,
+  movies,
+  roles,
+  movies_genres,
+  (
+    SELECT
+      roles.movie_id AS bacon_id
+    FROM
+      roles
+    INNER JOIN
+      actors
+    ON
+      actors.id = roles.actor_id
+      AND first_name LIKE "Kevin"
+      AND last_name LIKE "Bacon"
+  ) AS movies_with_bacon
+WHERE
+  actors.first_name NOT LIKE "Kevin"
+  AND actors.last_name NOT LIKE "Bacon"
+  AND movies_genres.genre LIKE "Drama"
+  AND movies.id = movies_with_bacon.bacon_id
+  AND actors.id = roles.actor_id
+  AND roles.movie_id = movies.id
+  AND movies_genres.movie_id = movies.id
+ORDER BY
+  movies.name
+ASC
