@@ -148,3 +148,20 @@ INTERSECT
   INNER JOIN
     movies ON roles.movie_id = movies.id
   WHERE movies.year > 2000;
+
+-- Busy Filming
+
+SELECT
+  *, COUNT(*)
+FROM
+  actors,
+  movies,
+  roles
+WHERE
+  actors.id = roles.actor_id
+  AND roles.movie_id = movies.id
+  AND movies.year > 1990
+GROUP BY movies.id, actors.id
+HAVING COUNT(*) > 5
+
+
