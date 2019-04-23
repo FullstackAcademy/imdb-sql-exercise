@@ -62,4 +62,26 @@ WHERE
   AND movies.year = 1995;
 ORDER BY
   actors.last_name
-ASC
+ASC;
+
+
+-- Leap Noir
+
+SELECT
+  directors.first_name,
+  movies.name,
+  movies.year
+FROM
+  movies,
+  directors,
+  movies_directors,
+  movies_genres
+WHERE
+  movies.id = movies_directors.movie_id
+  AND movies_directors.director_id = directors.id
+  AND movies.id = movies_genres.movie_id
+  AND movies_genres.genre LIKE 'Film-Noir'
+  AND movies.year % 4 = 0
+ORDER BY
+  movies.name
+ASC;
