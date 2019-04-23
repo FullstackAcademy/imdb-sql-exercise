@@ -122,3 +122,29 @@ WHERE
 ORDER BY
   movies.name
 ASC
+
+-- Immortal Actors
+
+  SELECT
+    actors.id,
+    actors.first_name,
+    actors.last_name
+  FROM
+    actors
+  JOIN
+    roles ON actors.id = roles.actor_id
+  INNER JOIN
+    movies ON roles.movie_id = movies.id
+  WHERE movies.year < 1900
+INTERSECT
+  SELECT
+    actors.id,
+    actors.first_name,
+    actors.last_name
+  FROM
+    actors
+  JOIN
+    roles ON actors.id = roles.actor_id
+  INNER JOIN
+    movies ON roles.movie_id = movies.id
+  WHERE movies.year > 2000;
